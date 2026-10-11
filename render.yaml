@@ -21,7 +21,7 @@ services:
       - key: DB_URL
         fromDatabase:
           name: campusconnect-db
-          property: connectionURI
+          property: connectionString
       - key: DB_USERNAME
         fromDatabase:
           name: campusconnect-db
@@ -35,11 +35,10 @@ services:
           name: campusconnect-frontend
           type: web
           property: host
-          # Render gives just the hostname; prefix it
       - key: SPRING_DATASOURCE_URL
         fromDatabase:
           name: campusconnect-db
-          property: connectionURI
+          property: connectionString
 
   # ─── TanStack Start Frontend (SSR) ───
   - type: web

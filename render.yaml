@@ -30,17 +30,12 @@ services:
         fromDatabase:
           name: campusconnect-db
           property: password
-      - key: FRONTEND_URL
-        fromService:
-          name: campusconnect-frontend
-          type: web
-          property: host
       - key: SPRING_DATASOURCE_URL
         fromDatabase:
           name: campusconnect-db
           property: connectionString
 
-  # ─── TanStack Start Frontend (SSR) ───
+  # ─── TanStack Start Frontend ───
   - type: web
     name: campusconnect-frontend
     runtime: node
@@ -50,8 +45,9 @@ services:
     envVars:
       - key: NODE_VERSION
         value: "20"
-      - key: VITE_API_BASE_URL
-        fromService:
-          name: campusconnect-backend
-          type: web
-          envVarKey: RENDER_EXTERNAL_URL
+      - key: NITRO_PRESET
+        value: "node-server"
+      - key: PORT
+        value: "10000"
+      - key: HOST
+        value: "0.0.0.0"

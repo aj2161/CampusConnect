@@ -1,0 +1,58 @@
+# Render Blueprint — deploys frontend, backend & database from one repo
+# https://docs.render.com/infrastructure-as-code
+
+databases:
+  - name: campusconnect-db
+    plan: free
+    databaseName: campusconnect
+    user: campusconnect_user
+
+services:
+  # ─── Spring Boot Backend ───
+  - type: web
+    name: campusconnect-backend
+    runtime: docker
+    plan: free
+    dockerfilePath: ./backend/Dockerfile
+    rootDir: ./
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: DB_URL
+        fromDatabase:
+          name: campusconnect-db
+          property: connectionURI
+      - key: DB_USERNAME
+        fromDatabase:
+          name: campusconnect-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: campusconnect-db
+          property: password
+      - key: FRONTEND_URL
+        fromService:
+          name: campusconnect-frontend
+          type: web
+          property: host
+          # Render gives just the hostname; prefix it
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: campusconnect-db
+          property: connectionURI
+
+  # ─── TanStack Start Frontend (SSR) ───
+  - type: web
+    name: campusconnect-frontend
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: node .output/server/index.mjs
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: VITE_API_BASE_URL
+        fromService:
+          name: campusconnect-backend
+          type: web
+          envVarKey: RENDER_EXTERNAL_URL

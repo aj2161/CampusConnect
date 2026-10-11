@@ -1,0 +1,17 @@
+CAMPUSCONNECT - QUICK START
+
+1) Ensure MySQL is running and the campusconnect database exists.
+2) Open RUN-BACKEND-8080.bat OR RUN-BACKEND-8081.bat (run only one backend instance at a time).
+3) For backend 8080, frontend defaults to http://localhost:8080.
+   For backend 8081, create a .env file beside package.json with: VITE_API_BASE_URL=http://localhost:8081
+   Then restart frontend.
+4) Double-click RUN-FRONTEND.bat. Open the Vite URL shown (usually http://localhost:5173).
+5) Register a demo account, then sign in. Forgot Password currently updates the password using email + new password; it is a classroom demo flow, not production-secure email verification.
+
+DATABASE CONFIGURATION
+The backend launcher asks for your local MySQL root password. Default database name: campusconnect.
+If your MySQL username/database differs, edit DB_USERNAME or DB_URL in backend/src/main/resources/application.properties.
+The database password is no longer hard-coded in the project.
+
+IMPORTANT
+Only one backend process can bind to a given port. Choose 8080 or 8081 when starting it. To switch ports, stop the first backend with Ctrl+C, then run the other .bat file.

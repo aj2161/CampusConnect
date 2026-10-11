@@ -1,0 +1,2 @@
+import { createFileRoute, Navigate } from '@tanstack/react-router';
+export const Route=createFileRoute('/')({head:()=>({meta:[{title:'CampusConnect | Student Portal'},{name:'description',content:'Your campus life, all in one place.'},{property:'og:title',content:'CampusConnect | Student Portal'},{property:'og:description',content:'Your campus life, all in one place.'},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary_large_image'}]}),component:()=> <Navigate to="/dashboard"/>});

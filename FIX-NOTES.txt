@@ -1,0 +1,20 @@
+CAMPUSCONNECT CONFIGURATION FIX NOTES
+
+Changes made:
+1. Frontend .env now points to http://localhost:8080, matching RUN-BACKEND-8080.bat.
+2. Removed the hard-coded MySQL password from application.properties; backend now reads DB_PASSWORD from the environment.
+3. Both backend .bat launchers prompt for the local MySQL password.
+4. Database URL defaults to jdbc:mysql://localhost:3306/campusconnect. The database must already exist.
+
+Run:
+1. Start MySQL.
+2. Double-click RUN-BACKEND-8080.bat and enter your local MySQL password when prompted.
+3. In a separate terminal, from this folder run:
+   npm install
+   npm run dev
+4. Open the local Vite URL printed in the terminal.
+
+Important:
+- Do not upload or share a ZIP containing real database passwords.
+- If the password in the original ZIP was a real password, change it in MySQL because it was included in the project file.
+- I could not fully run the frontend build in this environment because package installation did not complete, so this is a configuration fix, not a claim that every source-code issue is eliminated.
